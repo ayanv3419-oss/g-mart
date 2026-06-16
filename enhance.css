@@ -1,0 +1,585 @@
+/* G Mart — premium enhancements (generated) */
+
+/* ===== delight-animations ===== */
+/* ===== gm2 micro-delight: press feedback, shimmer sweep, fly-to-cart ===== */
+
+/* (2) Subtle press feedback. Site already sets translateY(2px) on :active for
+   both buttons; we compose scale(.97) on top so the existing nudge is preserved. */
+.add-cart:active{ transform: translateY(2px) scale(.97); }
+.cta:active{ transform: translateY(2px) scale(.97); }
+
+/* (3) One-time shimmer sweep across a .card on hover (~600ms).
+   .card already has position:relative + overflow:hidden, so the highlight is
+   clipped to the card. The site uses .card::after (inset hairline) but NOT
+   ::before, so this adds cleanly without clobbering anything. */
+.card::before{
+  content:''; position:absolute; top:0; left:-60%; width:55%; height:100%;
+  z-index:3; pointer-events:none;
+  background:linear-gradient(100deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,.55) 50%,
+    rgba(255,255,255,0) 100%);
+  transform:skewX(-18deg); opacity:0;
+}
+.card:hover::before{ animation:gm2sweep .6s ease-out 1; }
+@keyframes gm2sweep{
+  0%{ left:-60%; opacity:0; }
+  12%{ opacity:1; }
+  100%{ left:120%; opacity:0; }
+}
+
+/* (1) Fly-to-cart clone (positioned + animated from JS via Web Animations API) */
+.gm2-fly{
+  position:fixed; z-index:99999; pointer-events:none;
+  object-fit:contain; border-radius:10px; background:#fff;
+  box-shadow:0 8px 22px rgba(16,24,40,.18);
+  will-change:transform,opacity;
+}
+.gm2-fly-dot{ background:var(--brand,#d92d3c); border-radius:50%; }
+
+/* Cart icon bounce + badge pulse on landing */
+.amz-cart.gm2-cart-bounce{ animation:gm2bounce .55s cubic-bezier(.3,1.4,.5,1) 1; }
+@keyframes gm2bounce{
+  0%{ transform:translateY(0); }
+  28%{ transform:translateY(-7px) scale(1.06); }
+  55%{ transform:translateY(2px) scale(.98); }
+  100%{ transform:translateY(0); }
+}
+#badge.gm2-badge-pulse{ animation:gm2pulse .5s ease-out 1; }
+@keyframes gm2pulse{
+  0%{ transform:scale(1); }
+  40%{ transform:scale(1.5); }
+  100%{ transform:scale(1); }
+}
+
+/* Respect prefers-reduced-motion: disable fly + shimmer (and the cart/badge motion) */
+@media (prefers-reduced-motion: reduce){
+  .card:hover::before{ animation:none; }
+  .gm2-fly, .gm2-fly-dot{ display:none !important; }
+  .amz-cart.gm2-cart-bounce{ animation:none; }
+  #badge.gm2-badge-pulse{ animation:none; }
+}
+
+/* ===== scroll-ux ===== */
+/* ===== gm2 scroll experience ===== */
+
+/* (1) reading progress bar */
+#gm2-progress{
+  position:fixed;
+  top:0;left:0;
+  height:3px;
+  width:100%;
+  z-index:2147483000;
+  pointer-events:none;
+  background:transparent;
+}
+#gm2-progress-fill{
+  height:100%;
+  width:0%;
+  background:var(--brand,#d92d3c);
+  transform-origin:0 50%;
+  transition:width .08s linear;
+  box-shadow:0 0 0 transparent;
+}
+
+/* (2) back-to-top button */
+#gm2-top{
+  position:fixed;
+  right:20px;
+  bottom:84px;            /* sits above toast stack (toasts usually bottom-right) */
+  z-index:2147482000;     /* below toasts so toasts win, above page chrome */
+  width:46px;height:46px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--line,#ebedf0);
+  border-radius:50%;
+  background:#fff;
+  color:var(--brand,#d92d3c);
+  cursor:pointer;
+  padding:0;
+  box-shadow:0 6px 18px rgba(17,24,39,.14), 0 2px 6px rgba(17,24,39,.08);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(10px) scale(.94);
+  transition:opacity .22s ease, transform .22s ease, visibility .22s, box-shadow .2s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+#gm2-top.gm2-show{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0) scale(1);
+}
+#gm2-top:hover{
+  box-shadow:0 10px 24px rgba(217,45,60,.22), 0 3px 8px rgba(17,24,39,.10);
+  border-color:var(--brand,#d92d3c);
+}
+#gm2-top:active{ transform:translateY(0) scale(.96); }
+#gm2-top:focus-visible{
+  outline:2px solid var(--brand,#d92d3c);
+  outline-offset:2px;
+}
+#gm2-top svg{ display:block; width:20px;height:20px; }
+
+/* (3) header shrink */
+header.amz.gm2-shrunk{
+  box-shadow:0 4px 16px rgba(17,24,39,.12);
+}
+/* gently compress the sticky bar's vertical padding when shrunk.
+   scoped to direct children + common inner bars so we don't fight unknown markup. */
+header.amz.gm2-shrunk{
+  transition:box-shadow .2s ease, padding .2s ease;
+}
+header.amz.gm2-shrunk > *{
+  transition:padding .2s ease, height .2s ease;
+}
+
+@media (max-width:560px){
+  #gm2-top{ right:14px; bottom:78px; width:42px;height:42px; }
+  #gm2-top svg{ width:18px;height:18px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  #gm2-progress-fill{ transition:none; }
+  #gm2-top{ transition:opacity .15s linear, visibility .15s; transform:none; }
+  #gm2-top.gm2-show{ transform:none; }
+  #gm2-top:active{ transform:none; }
+  header.amz.gm2-shrunk, header.amz.gm2-shrunk > *{ transition:none; }
+}
+
+/* ===== visual-refinement ===== */
+/* ===== gm2 premium visual refinement (CSS-only) ===== */
+
+/* --- smoother global transitions on interactive surfaces --- */
+@media (prefers-reduced-motion: no-preference){
+  a, button, .card, .acard, .wide-card, .cattile-ic, .add-cart, .cta,
+  .amz-cart, .amz-search, .trust .t, .chip2, .wish, .pname, .crc, .cprice .now{
+    transition-timing-function:cubic-bezier(.2,.7,.2,1);
+  }
+}
+
+/* --- 1) custom slim modern page scrollbar (light bg friendly) --- */
+html{ scrollbar-width:thin; scrollbar-color:#c7cdd6 transparent; }
+::-webkit-scrollbar{ width:11px; height:11px; }
+::-webkit-scrollbar-track{ background:transparent; }
+::-webkit-scrollbar-thumb{
+  background:#c7cdd6;
+  border-radius:999px;
+  border:3px solid #fff;            /* inset look on the white page */
+  background-clip:padding-box;
+}
+::-webkit-scrollbar-thumb:hover{ background:#a9b1bd; background-clip:padding-box; }
+::-webkit-scrollbar-corner{ background:transparent; }
+
+/* --- slim scrollbars for the horizontal scrollers (re-reveal, refined) --- */
+.wide-row, .cats, .amz-nav-row{
+  scrollbar-width:thin;
+  scrollbar-color:#d2d7df transparent;
+}
+.wide-row::-webkit-scrollbar,
+.cats::-webkit-scrollbar,
+.amz-nav-row::-webkit-scrollbar{
+  display:block;            /* override the site's display:none */
+  height:7px;
+}
+.wide-row::-webkit-scrollbar-track,
+.cats::-webkit-scrollbar-track,
+.amz-nav-row::-webkit-scrollbar-track{ background:transparent; }
+.wide-row::-webkit-scrollbar-thumb,
+.cats::-webkit-scrollbar-thumb,
+.amz-nav-row::-webkit-scrollbar-thumb{
+  background:#dde1e8;
+  border-radius:999px;
+  transition:background .18s ease;
+}
+.wide-row:hover::-webkit-scrollbar-thumb,
+.cats:hover::-webkit-scrollbar-thumb,
+.amz-nav-row:hover::-webkit-scrollbar-thumb{ background:#c3c9d3; }
+.amz-nav-row{ height:auto; min-height:40px; padding-bottom:2px; }
+
+/* --- 2) tasteful brand focus-visible ring on interactive elements --- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible,
+.card:focus-visible,
+.cattile:focus-visible,
+.acard-link:focus-visible,
+.wide-link:focus-visible{
+  outline:2px solid var(--brand);
+  outline-offset:2px;
+  border-radius:8px;
+}
+/* keep mouse clicks clean — only show ring for keyboard nav */
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+select:focus:not(:focus-visible){ outline:none; }
+/* search field gets a soft brand glow instead of a hard ring */
+#search:focus-visible{
+  outline:none;
+  box-shadow:0 0 0 2px #fff, 0 0 0 4px rgba(217,45,60,.45);
+}
+
+/* --- 3) richer .card hover shadow + crisper 1px hairline borders --- */
+.card{
+  border-color:#e7eaef;
+  box-shadow:0 1px 2px rgba(16,24,40,.045);
+}
+.card:hover{
+  box-shadow:
+    0 26px 52px -20px rgba(16,24,40,.26),
+    0 8px 16px -10px rgba(16,24,40,.12);
+  border-color:#dfe3ea;
+}
+/* crisper inner hairline so cards read sharp on the off-white bg */
+.card::after{ box-shadow:inset 0 0 0 1px rgba(16,24,40,.03); }
+.acard, .wide-card{ border-color:#e7eaef; }
+
+/* --- 4) refine .cprice .now + .pname spacing / weight --- */
+.pname{
+  font-weight:600;
+  letter-spacing:-.012em;
+  line-height:1.34;
+  margin-top:4px;
+}
+.cprice{ margin-top:8px; gap:7px; }
+.cprice .now{
+  font-weight:800;
+  letter-spacing:-.45px;
+  color:var(--ink);
+}
+.cprice .now sup{ font-size:.62em; font-weight:700; top:-.55em; }
+.cprice .mrp{ letter-spacing:.1px; }
+
+/* --- 5) nicer review-count (.crc) colour — cleaner slate-blue --- */
+.crc{
+  color:#3f7fa6;
+  font-weight:600;
+  letter-spacing:.1px;
+}
+.crc:hover{ color:#2f6f96; }
+
+/* --- 6) soft inner top-highlight on the rotating banner --- */
+.abanner{ position:relative; }
+.abanner::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:3;
+  border-radius:inherit;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.55),
+    inset 0 0 0 1px rgba(16,24,40,.04);
+  background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,0) 22%);
+}
+
+/* --- 7) refined .add-cart gradient (warm, flat, premium) --- */
+.add-cart{
+  background:linear-gradient(180deg,#ffd76a 0%,#fbc02d 52%,#f6b200 100%);
+  border-color:#e8ad00;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.5),
+    0 1px 0 #d99f00,
+    0 8px 18px -7px rgba(246,177,0,.5);
+  letter-spacing:.01em;
+}
+.add-cart:hover{
+  background:linear-gradient(180deg,#ffe07f 0%,#ffc62a 52%,#fbb400 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.55),
+    0 1px 0 #d99f00,
+    0 12px 24px -7px rgba(246,177,0,.6);
+  transform:translateY(-1px);
+}
+.add-cart:active{
+  transform:translateY(1px);
+  box-shadow:inset 0 1px 2px rgba(160,110,0,.35),0 2px 6px rgba(246,177,0,.3);
+}
+
+/* --- refined .cta buttons (brand red, soft sheen) --- */
+.cta{
+  background:linear-gradient(180deg,#e64a5a 0%,#d0293a 55%,#c5202f 100%);
+  border-color:#b81f2c;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.18),
+    0 2px 0 #9c1724,
+    0 10px 22px -8px rgba(217,45,60,.42);
+  letter-spacing:.01em;
+}
+.cta:hover{
+  background:linear-gradient(180deg,#ec5464 0%,#d62e40 55%,#cf2433 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.2),
+    0 2px 0 #9c1724,
+    0 14px 28px -8px rgba(217,45,60,.5);
+}
+.cta:active{ transform:translateY(2px); box-shadow:inset 0 1px 2px rgba(120,15,25,.4),0 3px 8px rgba(217,45,60,.3); }
+.cta:disabled{ background:#cbd5e1; box-shadow:none; border-color:#cbd5e1; }
+
+/* --- crisper sticky header hairline against the page --- */
+.amz{ box-shadow:0 1px 0 rgba(16,24,40,.05),0 10px 28px -20px rgba(16,24,40,.28); }
+
+/* honour reduced-motion: kill the lift/scale motions we touch */
+@media (prefers-reduced-motion: reduce){
+  .card, .card:hover, .add-cart, .add-cart:hover, .cta:hover, .trust .t:hover{
+    transition:none;
+    transform:none;
+  }
+  .pimg{ animation:none; }
+}
+
+/* ===== trust-conversion ===== */
+/* ===== gm2 trust & conversion polish ===== */
+
+/* (1) top announcement bar */
+.gm2-anns{
+  position:relative;z-index:45;
+  background:#131922;color:#eef1f5;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.gm2-anns-row{
+  max-width:1280px;margin:0 auto;
+  display:flex;align-items:center;gap:10px;
+  min-height:34px;padding:0 22px;
+}
+.gm2-anns-track{
+  flex:1;min-width:0;position:relative;height:34px;
+}
+.gm2-anns-msg{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  font-size:12.5px;font-weight:600;letter-spacing:.01em;
+  color:#eef1f5;text-align:center;
+  opacity:0;transform:translateY(3px);
+  transition:opacity .5s ease,transform .5s ease;
+  pointer-events:none;
+}
+.gm2-anns-msg.gm2-on{opacity:1;transform:translateY(0)}
+.gm2-anns-msg .gm2-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--brand,#d92d3c);flex-shrink:0;
+}
+.gm2-anns-msg svg{width:14px;height:14px;display:block;flex-shrink:0;
+  stroke:#ffb4ba;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.gm2-anns-x{
+  flex-shrink:0;width:24px;height:24px;border-radius:6px;
+  display:grid;place-items:center;color:#9aa4b2;
+  background:none;border:none;cursor:pointer;line-height:0;
+  transition:background .15s,color .15s;
+}
+.gm2-anns-x:hover{background:rgba(255,255,255,.08);color:#fff}
+.gm2-anns-x svg{width:13px;height:13px;display:block;
+  stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+@media(max-width:520px){
+  .gm2-anns-row{padding:0 14px;min-height:32px}
+  .gm2-anns-track{height:32px}
+  .gm2-anns-msg{font-size:11.5px}
+}
+
+/* (2) "Why shop with G Mart" trust row before footer */
+.gm2-why{border-top:1px solid var(--line,#ebedf0);background:#fff}
+.gm2-why-in{
+  max-width:1280px;margin:0 auto;padding:30px 22px 34px;
+}
+.gm2-why-title{
+  font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--muted,#64748b);text-align:center;margin-bottom:20px;
+}
+.gm2-why-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+}
+.gm2-why-item{
+  display:flex;align-items:center;gap:13px;
+  padding:16px 18px;
+  border:1px solid #edeff2;border-radius:16px;background:#fff;
+  box-shadow:0 1px 2px rgba(16,24,40,.04);
+  transition:transform .2s,box-shadow .2s;
+}
+.gm2-why-item:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 32px -16px rgba(16,24,40,.16);
+}
+.gm2-why-ic{
+  width:44px;height:44px;border-radius:12px;flex-shrink:0;
+  display:grid;place-items:center;
+  background:var(--brand-50,#fdf2f3);color:var(--brand,#d92d3c);
+}
+.gm2-why-item:nth-child(1) .gm2-why-ic{background:var(--fresh-bg,#e9f9ef);color:var(--fresh,#15a34a)}
+.gm2-why-item:nth-child(2) .gm2-why-ic{background:var(--sky-bg,#e7f6fd);color:var(--sky,#0ea5e9)}
+.gm2-why-item:nth-child(3) .gm2-why-ic{background:var(--sun-bg,#fff3e8);color:var(--sun,#f97316)}
+.gm2-why-item:nth-child(4) .gm2-why-ic{background:var(--grape-bg,#f1ebfe);color:var(--grape,#7c3aed)}
+.gm2-why-ic svg{width:22px;height:22px;display:block;
+  stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.gm2-why-tx b{display:block;color:var(--ink,#0f172a);font-size:14px;font-weight:700;letter-spacing:-.01em}
+.gm2-why-tx span{display:block;font-size:12.5px;color:var(--muted,#64748b);margin-top:2px;line-height:1.35}
+@media(max-width:860px){.gm2-why-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:420px){.gm2-why-grid{grid-template-columns:1fr}}
+
+@media(prefers-reduced-motion:reduce){
+  .gm2-anns-msg{transition:opacity .001s linear;transform:none}
+  .gm2-anns-msg.gm2-on{transform:none}
+  .gm2-why-item{transition:none}
+  .gm2-why-item:hover{transform:none}
+}
+
+/* ===== mobile-responsive ===== */
+/* ===================================================================
+   gm2 — pure-CSS mobile & tablet premium polish (additive only)
+   Loaded AFTER all site styles. Only media queries; desktop untouched.
+   =================================================================== */
+
+/* ---------- TABLET & SMALL LAPTOP : <=768px ---------- */
+@media (max-width:768px){
+
+  /* tighter page gutters so content breathes on narrow screens */
+  .wrap{ padding-left:16px; padding-right:16px; }
+
+  /* --- header: tighten the top row so logo + search + cart fit --- */
+  .amz-top-row{ gap:8px; height:56px; }
+  .amz-logo{ padding:6px; gap:7px; }
+  .amz-logo .mark{ width:30px; height:30px; border-radius:8px; }
+  .amz-logo .mark svg{ width:18px; height:18px; }
+  .amz-logo .name{ font-size:18px; }
+  /* hide the non-essential location/account pills (site hides at 820 too) */
+  .amz-pill{ display:none !important; }
+  /* search stays flush; comfortable height + bigger hit area */
+  .amz-search{ height:44px; }
+  .amz-search select{ max-width:108px; font-size:12px; }
+  .amz-search .sbtn{ width:46px; }
+  /* cart: >=44px tap target */
+  .amz-cart{ min-width:44px; min-height:44px; align-items:center; justify-content:center; padding:6px 8px; }
+  .amz-cart .ic{ width:25px; height:25px; }
+
+  /* --- secondary nav row: roomy, thumb-scrollable tap targets --- */
+  .amz-nav-row{ height:46px; gap:4px; -webkit-overflow-scrolling:touch; }
+  .amz-navitem{ min-height:40px; padding:8px 11px; font-size:14px; }
+
+  /* --- banner: scale height + headline down, ease the padding --- */
+  .abanner{ height:248px; }
+  .abslide{ padding:0 30px; gap:16px; }
+  .ab-text{ max-width:56%; }
+  .ab-text h2{ font-size:30px; }
+  .ab-sub{ font-size:14px; }
+  .ab-cta{ padding:11px 22px; font-size:14px; min-height:44px; }
+  .ab-im{ width:118px; height:118px; }
+  .ab-arrow{ width:36px; height:36px; }
+
+  /* --- category tiles: thumb-friendly spacing --- */
+  .cats{ gap:14px; }
+  .cattile{ width:84px; }
+  .cattile-ic{ width:62px; height:62px; border-radius:18px; }
+
+  /* --- section heads: a touch smaller --- */
+  .sec-head{ margin:26px 0 12px; }
+  .sec-head h2{ font-size:20px; }
+
+  /* --- product cards: bigger Add-to-Cart tap target --- */
+  .add-cart{ padding:13px; min-height:46px; font-size:14px; }
+
+  /* --- cart drawer: nearly full width on tablets --- */
+  .drawer{ width:400px; max-width:94vw; }
+
+  /* --- PDP modal: comfortable single column (site collapses at 860) --- */
+  .pdp{ max-width:94vw; }
+  .pdp-info{ padding:22px 22px 26px; }
+  .pdp-media{ padding:20px; }
+  .pdp-actions{ flex-wrap:wrap; }
+  .pdp-actions .add-cart{ flex:1 1 auto; }
+}
+
+/* ---------- PHONE : <=480px ---------- */
+@media (max-width:480px){
+
+  /* even tighter gutters; reclaim horizontal space for a 2-up grid */
+  .wrap{ padding-left:12px; padding-right:12px; }
+
+  /* --- header: compact but every control still >=44px --- */
+  .amz-top-row{ gap:7px; height:54px; }
+  .amz-logo .name{ font-size:17px; }
+  .amz-search{ height:42px; }
+  /* drop the in-search category select so the input gets full width */
+  .amz-search select{ display:none; }
+  .amz-search input{ padding:0 12px; font-size:15px; }
+  .amz-search .sbtn{ width:44px; }
+  /* cart label hidden by site at 520; keep the icon a clean 44px target */
+  .amz-cart{ padding:6px; }
+
+  /* secondary nav: keep tappable while scrolling */
+  .amz-nav-row{ height:44px; }
+  .amz-navitem{ padding:8px 10px; }
+
+  /* --- banner: phone-sized, headline + supporting copy scaled --- */
+  .abanner{ height:210px; }
+  .abslide{ padding:0 20px; gap:10px; }
+  .ab-kicker{ font-size:11.5px; }
+  .ab-text{ max-width:64%; }
+  .ab-text h2{ font-size:23px; line-height:1.08; margin:6px 0 8px; }
+  .ab-sub{ font-size:12.5px; margin-bottom:14px; }
+  .ab-cta{ padding:10px 18px; font-size:13.5px; }
+  /* a single hero tile reads cleaner than three overlapped at this width */
+  .ab-im{ width:96px; height:96px; }
+  .ab-im:nth-child(1),.ab-im:nth-child(3){ display:none; }
+  .ab-im:nth-child(2){ transform:none; }
+  .ab-arrow{ width:32px; height:32px; }
+  .ab-arrow.prev{ left:8px; } .ab-arrow.next{ right:8px; }
+  .ab-dots{ bottom:10px; }
+
+  /* --- category tiles: comfortable thumb scroll --- */
+  .cats{ gap:12px; padding-bottom:10px; }
+  .cattile{ width:76px; gap:7px; }
+  .cattile-ic{ width:56px; height:56px; border-radius:16px; }
+  .cattile-ic svg{ width:27px; height:27px; }
+  .cattile-l{ font-size:11.5px; }
+
+  /* --- section head: phone scale --- */
+  .sec-head{ margin:22px 0 10px; flex-wrap:wrap; row-gap:8px; }
+  .sec-head h2{ font-size:19px; }
+  select.sort{ padding:9px 12px; }
+
+  /* --- PRODUCT GRID: 2 columns, tighter gap --- */
+  .grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; }
+  .card{ border-radius:13px; }
+  .body{ padding:11px; }
+  .pname{ font-size:13.5px; }
+  .cprice .now{ font-size:18px; }
+  .cbtn{ padding-top:10px; }
+  /* keep Add-to-Cart a full-width >=44px target inside the narrow card */
+  .add-cart{ padding:12px 8px; min-height:44px; font-size:13px; gap:5px; }
+  .cbtn .stepper{ height:46px; }
+  .stepper button{ width:48px; height:46px; }
+  .wish{ width:34px; height:34px; }
+
+  /* --- home card rows (already 1-col at 560) read tighter --- */
+  .acard{ padding:16px 16px 14px; }
+
+  /* --- cart drawer: full width on phones --- */
+  .drawer{ width:100%; max-width:100vw; }
+  .drawer-head{ padding:16px 18px; }
+  .drawer-body{ padding:6px 18px; }
+  .drawer-foot{ padding:16px 18px; }
+
+  /* --- PDP modal: full-bleed comfortable single column --- */
+  .pdp{ max-width:100vw; border-radius:0; }
+  .pdp-info{ padding:20px 18px 24px; }
+  .pdp-info h1{ font-size:20px; }
+  .pdp-media{ padding:16px; }
+  .pdp-price .now{ font-size:26px; }
+  .pdp-x{ top:10px; right:10px; }
+  .pdp-actions{ margin:18px 0; }
+
+  /* --- footer: single column, easy to read/tap --- */
+  .foot{ grid-template-columns:1fr; gap:24px; padding:34px 0 24px; }
+  .foot a,.foot li{ line-height:1.5; }
+  .foot-bottom .wrap{ flex-direction:column; align-items:flex-start; gap:12px; }
+}
+
+/* ---------- motion safety ---------- */
+@media (max-width:768px) and (prefers-reduced-motion:reduce){
+  .abslide{ transition:none; }
+  .card,.card:hover{ transform:none; }
+  .add-cart,.ab-cta{ transition:none; }
+}
