@@ -7,7 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="enhance.css" />
 <style>
   :root{
     --brand:#d92d3c; --brand-dark:#b01f2c; --brand-50:#fdf2f3; --brand-100:#f9d6d9; --deal:#b01f2c;
@@ -365,6 +364,223 @@
   .grid{gap:20px}
   .home-cards{gap:20px}
   .ab-dots{display:none}
+
+  /* ===== remove scroll progress line + scroll-performance fixes ===== */
+  #gm2-progress, #gm2-progress-fill{ display:none !important; }
+  .wish{ backdrop-filter:none; -webkit-backdrop-filter:none; background:#fff; }
+  .card{ content-visibility:auto; contain-intrinsic-size:0 360px; }
+  .acard,.wtile{ content-visibility:auto; contain-intrinsic-size:0 280px; }
+  img.pimg{ backface-visibility:hidden; }
+
+  /* ===== mobile & tablet responsive (premium) ===== */
+@media (max-width:768px){
+  html,body{overflow-x:hidden;max-width:100%;}
+  main.wrap{padding-left:14px;padding-right:14px;}
+  .amz-top-row{gap:10px;}
+  .amz-search{flex:1 1 auto;min-width:0;}
+  .amz-search input#search{min-width:0;}
+  .abanner{height:280px;}
+  .ab-text h2{font-size:32px;line-height:1.15;}
+  .ab-imgs .ab-im{transform:scale(.85);}
+  .home-cards#homeCards,.home-cards#homeCards2,.home-cards{grid-template-columns:1fr 1fr;}
+  .home-cards#homeCards.overlap,.home-cards.overlap{margin-top:18px;}
+  #grid.grid,.grid{grid-template-columns:repeat(3,1fr);}
+  .foot{grid-template-columns:1fr 1fr;}
+  .sheet.pdp{grid-template-columns:1fr;}
+  .pdp-media{position:static;top:auto;}
+  aside.drawer{width:380px;max-width:90vw;}
+}
+@media (max-width:480px){
+  html,body{overflow-x:hidden;max-width:100%;}
+  main.wrap{padding-left:12px;padding-right:12px;}
+  .amz-top{padding-left:10px;padding-right:10px;}
+  .amz-top-row{height:56px;gap:8px;flex-wrap:nowrap;}
+  .amz-logo{flex:0 0 auto;}
+  .amz-logo .name{font-size:17px;}
+  .amz-pill{display:none;}
+  .amz-search{flex:1 1 auto;min-width:0;height:40px;}
+  .amz-search select{flex:0 0 auto;}
+  .amz-search input#search{min-width:0;width:100%;height:40px;}
+  .amz-search .sbtn{flex:0 0 auto;height:40px;min-width:44px;}
+  .amz-cart{flex:0 0 auto;min-height:44px;min-width:44px;display:flex;align-items:center;justify-content:center;}
+  .amz-cart .ctxt{display:none;}
+  .amz-nav-row{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .amz-nav-row::-webkit-scrollbar{display:none;}
+  .amz-navitem{flex:0 0 auto;}
+  .amz-nav-right{display:none;}
+  .abanner{height:210px;}
+  .ab-text{max-width:100%;}
+  .ab-text h2{font-size:24px;line-height:1.2;}
+  .ab-imgs{display:none;}
+  .ab-arrow{width:34px;height:34px;}
+  .ab-arrow svg,.ab-arrow img{width:16px;height:16px;}
+  .home-cards#homeCards,.home-cards#homeCards2,.home-cards{grid-template-columns:1fr;}
+  .home-cards#homeCards.overlap,.home-cards.overlap{margin-top:16px;}
+  .wide-row{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .wtile{flex:0 0 auto;}
+  .cats{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .cats::-webkit-scrollbar{display:none;}
+  .cattile{flex:0 0 auto;width:74px;}
+  #grid.grid,.grid{grid-template-columns:1fr 1fr;gap:12px;}
+  .card .body{padding:10px;}
+  .card .pname{font-size:13.5px;line-height:1.3;}
+  .card .cprice .now{font-size:18px;}
+  .card .cbtn{width:100%;}
+  .card .add-cart{width:100%;min-height:44px;font-size:14px;}
+  aside.drawer{width:100vw;max-width:100vw;}
+  .drawer-foot .cta{min-height:44px;}
+  .modal{padding:12px;}
+  .modal .sheet{width:100%;max-width:100%;}
+  .sheet.pdp{width:100%;max-width:100%;grid-template-columns:1fr;}
+  .pdp-media{position:static;top:auto;}
+  .pdp-info h1{font-size:20px;line-height:1.25;}
+  .pdp-actions{flex-wrap:wrap;}
+  .pdp-actions button{flex:1 1 100%;min-height:44px;}
+  .vchip{min-height:40px;}
+  .szbtn{min-height:40px;min-width:40px;}
+  .spec{display:block;overflow-x:auto;}
+  .foot{grid-template-columns:1fr;}
+}
+
+  /* ===== orders page (prototype) ===== */
+  .ord-crumb{font-size:13px;color:var(--muted);margin:20px 0 14px}
+  .ord-crumb a{color:#1a7fb5;cursor:pointer} .ord-crumb a:hover{color:var(--brand);text-decoration:underline} .ord-crumb b{color:var(--ink);font-weight:700}
+  .ord-titlerow{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:16px}
+  .ord-titlerow h1{font-size:28px;font-weight:800;color:var(--ink);letter-spacing:-.02em}
+  .ord-srch{display:flex;align-items:center;gap:10px;flex:1;max-width:560px;min-width:240px}
+  .ord-srch .box{flex:1;display:flex;align-items:center;gap:8px;border:1px solid #cbd5e1;border-radius:9px;padding:9px 12px;background:#fff}
+  .ord-srch .box .ic{width:17px;height:17px;stroke:var(--muted)}
+  .ord-srch .box input{border:none;outline:none;flex:1;font-size:14px;color:var(--ink);min-width:0;background:none}
+  .ord-srch .go{background:#131922;color:#fff;font-weight:700;font-size:13.5px;padding:10px 18px;border-radius:9px;white-space:nowrap}
+  .ord-srch .go:hover{background:#232f3e}
+  .ord-tabs{display:flex;gap:26px;border-bottom:1px solid var(--line);margin-bottom:18px;overflow-x:auto;scrollbar-width:none}
+  .ord-tabs::-webkit-scrollbar{display:none}
+  .ord-tab{font-size:15px;font-weight:600;color:var(--muted);padding:0 2px 12px;position:relative;background:none;white-space:nowrap}
+  .ord-tab:hover{color:var(--ink)} .ord-tab.on{color:var(--ink);font-weight:700}
+  .ord-tab.on::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:3px;border-radius:3px 3px 0 0;background:var(--brand)}
+  .ord-meta{font-size:14px;color:var(--body);margin-bottom:18px}
+  .ord-meta b{color:var(--ink)}
+  .ord-meta .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:13px;font-weight:600;color:var(--ink);margin-left:6px;background:#fff}
+  .ord-layout{display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:start}
+  .ord-list{display:flex;flex-direction:column;gap:20px;min-width:0}
+  .ocard{border:1px solid #d5d9d9;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 1px 2px rgba(16,24,40,.05)}
+  .ocard-top{display:flex;flex-wrap:wrap;gap:8px 30px;align-items:center;background:#f0f2f4;padding:14px 20px;border-bottom:1px solid #e0e4e8}
+  .ocol{display:flex;flex-direction:column;gap:1px}
+  .ocol .k{font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--muted);text-transform:uppercase}
+  .ocol .v{font-size:13.5px;color:var(--ink);font-weight:600}
+  .ocol.ship .v{color:#1a7fb5}
+  .ocard-top .right{margin-left:auto;text-align:right;display:flex;flex-direction:column;gap:3px}
+  .ocard-top .right .onum{font-size:12px;color:var(--muted)}
+  .ocard-top .right .links a{color:#1a7fb5;cursor:pointer;font-size:13px} .ocard-top .right .links a:hover{color:var(--brand);text-decoration:underline}
+  .ocard-top .right .links i{color:#cbd5e1;margin:0 6px;font-style:normal}
+  .ocard-body{padding:20px;display:flex;gap:22px}
+  .ocard-main{flex:1;min-width:0}
+  .ostatus{font-size:17px;font-weight:800;color:var(--ink)}
+  .ostatus.arriving{color:var(--fresh)}
+  .osub{font-size:13.5px;color:var(--muted);margin:2px 0 14px}
+  .oitem{display:flex;gap:16px}
+  .oitem-img{width:80px;height:80px;flex-shrink:0;border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden;position:relative;cursor:pointer}
+  .oitem-img .pimg{padding:8px}
+  .oitem-info{min-width:0}
+  .oitem-title{font-size:14.5px;color:#1a7fb5;font-weight:500;line-height:1.4;cursor:pointer;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .oitem-title:hover{color:var(--brand);text-decoration:underline}
+  .oitem-rep{font-size:12.5px;color:var(--muted);margin-top:6px}
+  .oitem-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .obuy{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(180deg,#ffd86a,#f6b200);border:1px solid #e7ac00;color:#3a2c00;font-weight:700;font-size:13px;padding:9px 16px;border-radius:22px;box-shadow:0 1px 0 #d99f00}
+  .obuy:hover{background:linear-gradient(180deg,#ffe277,#ffc01f)} .obuy .ic{width:15px;height:15px;stroke:#3a2c00}
+  .oview{display:inline-flex;align-items:center;background:#fff;border:1px solid #cbd5e1;color:var(--ink);font-weight:600;font-size:13px;padding:9px 16px;border-radius:22px}
+  .oview:hover{background:var(--soft)}
+  .ocard-side{width:236px;flex-shrink:0;display:flex;flex-direction:column;gap:9px}
+  .obtn{width:100%;font-size:13px;font-weight:600;padding:9px 14px;border-radius:22px;border:1px solid #cbd5e1;background:#fff;color:var(--ink);text-align:center}
+  .obtn:hover{background:var(--soft)} .obtn.primary{background:linear-gradient(180deg,#ffd86a,#f6b200);border-color:#e7ac00;color:#3a2c00;font-weight:700} .obtn.primary:hover{background:linear-gradient(180deg,#ffe277,#ffc01f)}
+  .ord-aside{border:1px solid var(--line);border-radius:14px;padding:18px 16px;background:#fff;box-shadow:var(--shadow)}
+  .ord-aside h3{font-size:17px;font-weight:800;color:var(--ink);margin-bottom:14px;line-height:1.3}
+  .rec{display:flex;gap:12px;padding:13px 0;border-top:1px solid var(--line)} .rec:first-of-type{border-top:none;padding-top:0}
+  .rec-img{width:74px;height:74px;flex-shrink:0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff;position:relative;cursor:pointer}
+  .rec-img .pimg{padding:7px}
+  .rec-info{min-width:0;flex:1}
+  .rec-name{font-size:13px;color:#1a7fb5;line-height:1.35;cursor:pointer;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .rec-name:hover{text-decoration:underline;color:var(--brand)}
+  .rec-price{display:flex;align-items:baseline;gap:6px;margin-top:4px}
+  .rec-price .off{font-size:13px;color:var(--brand);font-weight:700} .rec-price .now{font-size:15px;color:var(--ink);font-weight:800}
+  .rec-mrp{font-size:11.5px;color:var(--muted);margin-top:1px}
+  .rec-eta{font-size:11.5px;color:var(--body);margin-top:4px} .rec-eta b{color:var(--ink)}
+  .rec-add{margin-top:8px;background:linear-gradient(180deg,#ffd86a,#f6b200);border:1px solid #e7ac00;color:#3a2c00;font-weight:700;font-size:12px;padding:6px 14px;border-radius:18px} .rec-add:hover{background:linear-gradient(180deg,#ffe277,#ffc01f)}
+  @media(max-width:920px){ .ord-layout{grid-template-columns:1fr} .ocard-body{flex-direction:column} .ocard-side{width:100%;flex-direction:row;flex-wrap:wrap} .obtn{width:auto;flex:1 1 auto} }
+  @media(max-width:560px){ .ord-titlerow h1{font-size:22px} .ocard-top{gap:8px 20px} .oitem{gap:12px} .oitem-img{width:64px;height:64px} }
+
+  /* ===== account page (prototype) ===== */
+  .acc-h1{font-size:28px;font-weight:800;color:var(--ink);margin:24px 0 20px;letter-spacing:-.02em}
+  .acc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .acccard{display:flex;gap:16px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:#fff;cursor:pointer;transition:transform .18s,box-shadow .18s,border-color .18s;box-shadow:0 1px 2px rgba(16,24,40,.04);text-align:left}
+  .acccard:hover{box-shadow:0 18px 36px -18px rgba(16,24,40,.22);transform:translateY(-3px);border-color:#e3e7ee}
+  .acccard .ai{width:56px;height:56px;border-radius:15px;display:grid;place-items:center;flex-shrink:0;background:var(--cb);color:var(--c)}
+  .acccard .ai svg{width:28px;height:28px;stroke:var(--c);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .acccard .acctext{min-width:0}
+  .acccard .at{font-size:16px;font-weight:700;color:var(--ink);line-height:1.25}
+  .acccard .as{font-size:13px;color:var(--muted);margin-top:3px;line-height:1.45}
+  .acc-divider{height:1px;background:var(--line);margin:38px 0 30px}
+  .acc-links{display:grid;grid-template-columns:repeat(3,1fr);gap:30px 40px;padding-bottom:10px}
+  .acc-col h4{font-size:16px;font-weight:800;color:var(--ink);margin-bottom:14px}
+  .acc-col ul{list-style:none} .acc-col li{margin-bottom:11px}
+  .acc-col a{color:#1a7fb5;font-size:14px;cursor:pointer} .acc-col a:hover{color:var(--brand);text-decoration:underline}
+  @media(max-width:920px){ .acc-grid{grid-template-columns:1fr 1fr} .acc-links{grid-template-columns:1fr 1fr} }
+  @media(max-width:560px){ .acc-grid{grid-template-columns:1fr} .acc-links{grid-template-columns:1fr} .acc-h1{font-size:22px} .acccard .ai{width:48px;height:48px;border-radius:13px} }
+  /* ===== Amazon-style cart page (cartView) ===== */
+  .cp-continue{display:inline-flex;align-items:center;gap:6px;color:#007185;font-size:14px;font-weight:600;background:none;border:none;cursor:pointer;margin:18px 0 4px}
+  .cp-continue:hover{color:var(--brand);text-decoration:underline}
+  .cp-continue .ic{width:16px;height:16px;stroke:currentColor}
+  .cp-grid{display:grid;grid-template-columns:1fr 320px;gap:22px;align-items:start;padding:6px 0 10px}
+  .cp-main{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 22px}
+  .cp-head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:2px}
+  .cp-head h1{font-size:26px;font-weight:700;color:var(--ink)}
+  .cp-head .cp-pricelbl{font-size:13px;color:var(--muted)}
+  .cp-item{display:grid;grid-template-columns:22px 130px 1fr auto;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+  .cp-item input[type=checkbox]{width:18px;height:18px;margin-top:3px;accent-color:var(--brand);cursor:pointer}
+  .cp-img{width:130px;height:130px;background:#fff;display:grid;place-items:center;overflow:hidden;cursor:pointer}
+  .cp-img img{max-width:100%;max-height:100%;object-fit:contain}
+  .cp-title{font-size:16px;color:var(--ink);line-height:1.4;font-weight:500;cursor:pointer}
+  .cp-title:hover{color:var(--brand)}
+  .cp-dealtag{display:inline-block;color:#cc0c39;font-size:12px;font-weight:700;margin-top:5px}
+  .cp-prc{display:flex;align-items:center;gap:8px;margin-top:4px}
+  .cp-prc .off{background:#cc0c39;color:#fff;font-size:12px;font-weight:700;padding:1px 7px;border-radius:4px}
+  .cp-prc .now{font-size:19px;font-weight:700;color:var(--ink)}
+  .cp-mrp{font-size:12px;color:var(--muted);margin-top:3px}
+  .cp-stock{font-size:12.5px;color:var(--fresh);margin-top:6px}
+  .cp-deliv{font-size:13px;color:var(--body);margin-top:2px}
+  .cp-model{font-size:13px;color:var(--body);margin-top:6px}
+  .cp-acts{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:12px}
+  .cp-qty{display:flex;align-items:center;border:1px solid #d5d9df;border-radius:8px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.06);background:#f0f2f4}
+  .cp-qty button{width:34px;height:32px;display:grid;place-items:center;color:var(--ink)}
+  .cp-qty button:hover{background:#e3e6ea}
+  .cp-qty button .ic{width:15px;height:15px;stroke:var(--ink)}
+  .cp-qty span{min-width:30px;text-align:center;font-weight:700;font-size:14px;background:#fff;height:32px;display:grid;place-items:center;border-left:1px solid #d5d9df;border-right:1px solid #d5d9df}
+  .cp-sep{color:#d5d9df}
+  .cp-link{font-size:13px;color:#007185;background:none;border:none;cursor:pointer;padding:0}
+  .cp-link:hover{color:var(--brand);text-decoration:underline}
+  .cp-lineprice{font-size:16px;font-weight:700;color:var(--ink);white-space:nowrap}
+  .cp-subtotal{text-align:right;font-size:18px;color:var(--ink);padding-top:16px}
+  .cp-summary{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;box-shadow:var(--shadow);position:sticky;top:80px}
+  .cp-free{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:var(--fresh);margin-bottom:12px}
+  .cp-free .ic{width:16px;height:16px;stroke:currentColor;flex-shrink:0;margin-top:1px}
+  .cp-sub-line{font-size:16px;color:var(--ink);margin-bottom:14px}
+  .cp-buy{width:100%;background:linear-gradient(180deg,#ffda5e,#f7b500);border:1px solid #e3a900;color:#3a2c00;font-weight:800;font-size:14px;padding:11px;border-radius:24px;box-shadow:0 2px 0 #d49a00}
+  .cp-buy:hover{background:linear-gradient(180deg,#ffe277,#ffc01f)}
+  .cp-empty{text-align:center;padding:60px 20px}
+  .cp-empty .ic{width:64px;height:64px;stroke:#cbd5e1;margin:0 auto 14px}
+  .cp-empty h2{font-size:22px;color:var(--ink);font-weight:700}
+  .cp-empty p{color:var(--muted);font-size:14px;margin-top:6px}
+  .cp-saved{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin:18px 0 50px}
+  .cp-saved h2{font-size:19px;color:var(--ink);font-weight:700}
+  .cp-saved-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-top:14px}
+  .cp-scard{border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column}
+  .cp-simg{aspect-ratio:1/1;background:#fff;display:grid;place-items:center;overflow:hidden;cursor:pointer;margin-bottom:8px}
+  .cp-simg img{max-width:100%;max-height:100%;object-fit:contain}
+  .cp-sname{font-size:13px;color:var(--ink);line-height:1.35;cursor:pointer;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:36px}
+  .cp-sprice{font-size:15px;font-weight:800;color:var(--ink);margin:6px 0 8px}
+  .cp-smove{background:var(--brand-50);color:var(--brand-dark);border:1px solid var(--brand-100);font-weight:700;font-size:12.5px;padding:7px;border-radius:8px;margin-bottom:6px}
+  .cp-smove:hover{background:var(--brand);color:#fff}
+  @media(max-width:860px){ .cp-grid{grid-template-columns:1fr} .cp-summary{position:static} .cp-item{grid-template-columns:90px 1fr} .cp-item input[type=checkbox]{display:none} .cp-img{width:90px;height:90px} .cp-lineprice{grid-column:1/-1;text-align:right} }
 </style>
 </head>
 <body>
@@ -372,22 +588,22 @@
 <header class="amz">
   <div class="amz-top">
     <div class="wrap amz-top-row">
-      <a href="#" class="amz-logo"><span class="mark"><svg class="ic" viewBox="0 0 24 24"><path d="M3 6h18l-1.5 11a2 2 0 0 1-2 1.7H6.5a2 2 0 0 1-2-1.7L3 6z"/><path d="M8 6V5a4 4 0 0 1 8 0v1"/></svg></span><span class="name">G<span>Mart</span></span></a>
+      <a href="#" class="amz-logo" onclick="showStore();return false"><span class="mark"><svg class="ic" viewBox="0 0 24 24"><path d="M3 6h18l-1.5 11a2 2 0 0 1-2 1.7H6.5a2 2 0 0 1-2-1.7L3 6z"/><path d="M8 6V5a4 4 0 0 1 8 0v1"/></svg></span><span class="name">G<span>Mart</span></span></a>
       <button class="amz-pill"><svg class="ic" viewBox="0 0 24 24"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg><span><span class="l1">Deliver to Ayan</span><span class="l2">Mumbai 400001</span></span></button>
       <div class="amz-search">
         <select id="searchCat" onchange="goCat(this.value)" aria-label="Category"></select>
         <input id="search" type="text" placeholder="Search G Mart" oninput="onSearch(this.value)" />
         <button class="sbtn" aria-label="Search"><svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></button>
       </div>
-      <button class="amz-pill"><span><span class="l1">Hello, Ayan</span><span class="l2">Account &amp; Lists</span></span></button>
-      <button class="amz-pill"><span><span class="l1">Returns</span><span class="l2">&amp; Orders</span></span></button>
-      <button class="amz-cart" onclick="openCart()"><svg class="ic" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.4 12.2a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.3L22 7H6"/></svg><span class="cnum" id="badge">0</span><span class="ctxt">Cart</span></button>
+      <button class="amz-pill" onclick="openAccount()"><span><span class="l1">Hello, Ayan</span><span class="l2">Account &amp; Lists</span></span></button>
+      <button class="amz-pill" onclick="openOrders()"><span><span class="l1">Returns</span><span class="l2">&amp; Orders</span></span></button>
+      <button class="amz-cart" onclick="openCartView()"><svg class="ic" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.4 12.2a1.6 1.6 0 0 0 1.6 1.3h8.4a1.6 1.6 0 0 0 1.6-1.3L22 7H6"/></svg><span class="cnum" id="badge">0</span><span class="ctxt">Cart</span></button>
     </div>
   </div>
   <div class="amz-nav"><div class="wrap amz-nav-row" id="amzNav"></div></div>
 </header>
 
-<main class="wrap">
+<main class="wrap" id="storeView">
   <section class="abanner-wrap"><div class="abanner" id="abanner"></div></section>
   <div class="home-cards overlap" id="homeCards"></div>
   <div class="home-cards" id="homeCards2"></div>
@@ -416,6 +632,12 @@
   </div>
   <div class="grid" id="grid"></div>
 </main>
+
+<main class="wrap" id="ordersView" style="display:none"></main>
+
+<main class="wrap" id="accountView" style="display:none"></main>
+
+<main class="wrap" id="cartView" style="display:none"></main>
 
 <footer>
   <div class="wrap foot">
@@ -506,7 +728,7 @@ function phTag(p){ return `<div class="ph"><span class="ph-ic">${ICON.box}</span
 function imgTag(id){ const u=imgFor(id); return u?`<img class="pimg" src="${u}" alt="" loading="lazy" onerror="imgFail(this,${id})">`:phTag(getP(id)); }
 function imgFail(el,id){ const t=el.parentElement; el.remove(); t.insertAdjacentHTML('beforeend', phTag(getP(id))); }
 function boughtText(rv){ if(rv>=2000) return Math.floor(rv/1000)+'k+ bought this month'; if(rv>=1000) return '1k+ bought this month'; if(rv>=500) return '500+ bought recently'; return (Math.max(50,Math.floor(rv/50)*50))+'+ bought recently'; }
-function scrollShop(){ const s=document.getElementById('shop'); if(s) s.scrollIntoView({behavior:'smooth'}); }
+function scrollShop(){ showStore(); const s=document.getElementById('shop'); if(s) s.scrollIntoView({behavior:'smooth'}); }
 function topByRv(n){ return PRODUCTS.slice().sort((a,b)=>b.rv-a.rv).slice(0,n); }
 function catTop(cat,n){ return PRODUCTS.filter(p=>p.cat===cat).slice(0,n); }
 
@@ -548,7 +770,7 @@ function renderCats(){
 }
 function setCat(c){ activeCat=c; renderCats(); renderGrid(); document.getElementById('sectionTitle').textContent=c==="All"?"All Products":c; const sc=document.getElementById('searchCat'); if(sc)sc.value=c; }
 function goCat(c){ setCat(c); scrollShop(); }
-function onSearch(v){ searchTerm=v.toLowerCase().trim(); renderGrid(); }
+function onSearch(v){ showStore(); searchTerm=v.toLowerCase().trim(); renderGrid(); }
 function setSort(v){ sortBy=v; renderGrid(); }
 function visibleProducts(){
   let list = PRODUCTS.filter(p =>
@@ -686,7 +908,7 @@ function incPDP(){ addFromPDP(); }
 function syncPDP(){
   if(pdpId===null) return; const el=document.getElementById('pdpActions'); if(!el) return; const q=cart[pdpId]||0;
   el.innerHTML = q>0
-    ? `<div class="stepper" style="height:50px;border-radius:24px"><button onclick="dec(${pdpId})">${ICON.minus}</button><span style="min-width:36px;font-size:16px">${q}</span><button onclick="incPDP()">${ICON.plus}</button></div><button class="cta" style="flex:1" onclick="closeModal('pdpModal');openCart()">Go to Cart ${ICON.arrow}</button>`
+    ? `<div class="stepper" style="height:50px;border-radius:24px"><button onclick="dec(${pdpId})">${ICON.minus}</button><span style="min-width:36px;font-size:16px">${q}</span><button onclick="incPDP()">${ICON.plus}</button></div><button class="cta" style="flex:1" onclick="closeModal('pdpModal');openCartView()">Go to Cart ${ICON.arrow}</button>`
     : `<button class="cta" style="flex:1" onclick="addFromPDP()">${ICON.cart} Add to Cart</button>`;
 }
 
@@ -701,8 +923,173 @@ function placeOrder(){ const id='GM'+(100000+Math.floor((subtotal()*7+cartCount(
 function resetAll(){ cart={}; cartOpt={}; sync(); closeModal('successModal'); }
 document.addEventListener('click',e=>{ if(e.target.classList.contains('modal')) e.target.classList.remove('show'); });
 
+/* ---------- orders page (prototype, fake data from real catalog) ---------- */
+const ORD_MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+function ordDate(d){ return d.getDate()+' '+ORD_MONTHS[d.getMonth()]+' '+d.getFullYear(); }
+function ordDay(d){ return d.getDate()+' '+ORD_MONTHS[d.getMonth()]; }
+function ordMoney(n){ return '₹'+Number(n).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function ordNo(seed){ const lead=400+(seed*7%100); const pad=(x,l)=>{let s=String(Math.abs(Math.floor(x)));while(s.length<l)s='0'+s;return s.slice(-l);}; return lead+'-'+pad(seed*7919+131,7)+'-'+pad(seed*104729+977,7); }
+let ORDERS=null, ordTab='orders';
+function buildOrders(){
+  if(ORDERS) return ORDERS;
+  const now=new Date();
+  const ago=n=>{const d=new Date(now);d.setDate(d.getDate()-n);return d;};
+  const ahead=n=>{const d=new Date(now);d.setDate(d.getDate()+n);return d;};
+  const byPrice=PRODUCTS.slice().sort((a,b)=>b.price-a.price);
+  const at=i=>byPrice[Math.min(i,byPrice.length-1)];
+  ORDERS=[
+    {placed:ago(12), items:[{p:at(4),q:1}], status:'delivered', delivered:ago(9)},
+    {placed:ago(25), items:[{p:at(11),q:1},{p:at(34),q:2}], status:'delivered', delivered:ago(22)},
+    {placed:ago(2),  items:[{p:at(2),q:1}], status:'arriving', eta:ahead(1)},
+    {placed:ago(40), items:[{p:at(20),q:1}], status:'delivered', delivered:ago(36)},
+    {placed:ago(58), items:[{p:at(48),q:1},{p:at(70),q:1}], status:'delivered', delivered:ago(53)},
+  ].map((o,i)=>({...o, no:ordNo(i+1+(o.items[0].p.id||1)), total:o.items.reduce((s,it)=>s+it.p.price*it.q,0)}));
+  return ORDERS;
+}
+function setOrdTab(t){ ordTab=t; renderOrders(); }
+function ordVisible(orders){ if(ordTab==='shipped') return orders.filter(o=>o.status==='arriving'); if(ordTab==='buyagain') return orders.filter(o=>o.status==='delivered'); return orders; }
+function ordItemHTML(o,it){
+  const p=it.p;
+  const rep = o.status==='delivered'
+    ? 'Replace item: Eligible till '+ordDay(new Date(o.delivered.getTime()+10*864e5))
+    : 'Arriving tomorrow · track for live updates';
+  return `<div class="oitem">
+    <div class="oitem-img" onclick="openPDP(${p.id})">${imgTag(p.id)}</div>
+    <div class="oitem-info">
+      <div class="oitem-title" onclick="openPDP(${p.id})">${p.name}</div>
+      <div class="oitem-rep">${rep}</div>
+      <div class="oitem-cta">
+        <button class="obuy" onclick="inc(${p.id},event);toast('Added to cart')">${ICON.ret} Buy it again</button>
+        <button class="oview" onclick="openPDP(${p.id})">View your item</button>
+      </div>
+    </div></div>`;
+}
+function ordCardHTML(o){
+  const head = o.status==='arriving'
+    ? `<div class="ostatus arriving">Arriving tomorrow</div><div class="osub">Out for delivery · expected ${ordDay(o.eta)}</div>`
+    : `<div class="ostatus">Delivered ${ordDay(o.delivered)}</div><div class="osub">Package was handed to resident</div>`;
+  const btns = o.status==='arriving'
+    ? ['Track package','Cancel items','Get product support','Leave delivery feedback']
+    : ['Get product support','Track package','Replace item','Share gift receipt','Leave seller feedback','Leave delivery feedback','Write a product review'];
+  return `<div class="ocard">
+    <div class="ocard-top">
+      <div class="ocol"><span class="k">Order placed</span><span class="v">${ordDate(o.placed)}</span></div>
+      <div class="ocol"><span class="k">Total</span><span class="v">${ordMoney(o.total)}</span></div>
+      <div class="ocol ship"><span class="k">Ship to</span><span class="v">Ayan &#9662;</span></div>
+      <div class="right"><span class="onum">Order # ${o.no}</span><span class="links"><a onclick="toast('Demo only')">View order details</a><i>|</i><a onclick="toast('Demo only')">Invoice &#9662;</a></span></div>
+    </div>
+    <div class="ocard-body">
+      <div class="ocard-main">${head}${o.items.map(it=>ordItemHTML(o,it)).join('')}</div>
+      <div class="ocard-side">${btns.map((b,i)=>`<button class="obtn ${i===0?'primary':''}" onclick="toast('Demo only')">${b}</button>`).join('')}</div>
+    </div></div>`;
+}
+function ordRecHTML(p){
+  const off=offPct(p), eta=new Date(); eta.setDate(eta.getDate()+2);
+  return `<div class="rec">
+    <div class="rec-img" onclick="openPDP(${p.id})">${imgTag(p.id)}</div>
+    <div class="rec-info">
+      <div class="rec-name" onclick="openPDP(${p.id})">${p.name}</div>
+      <div class="rec-price">${off?`<span class="off">-${off}%</span>`:''}<span class="now">₹${p.price}</span></div>
+      ${off?`<div class="rec-mrp">M.R.P.: <s>₹${p.mrp}</s></div>`:''}
+      <div class="rec-eta">Get it by <b>${ordDay(eta)}</b></div>
+      <div class="rec-eta">FREE Delivery by G Mart</div>
+      <button class="rec-add" onclick="inc(${p.id},event);toast('Added to cart')">Add to cart</button>
+    </div></div>`;
+}
+function renderOrders(){
+  const orders=buildOrders(), list=ordVisible(orders);
+  const used=new Set(orders.flatMap(o=>o.items.map(it=>it.p.id)));
+  const recs=PRODUCTS.slice().sort((a,b)=>b.rv-a.rv).filter(p=>!used.has(p.id)).slice(0,4);
+  const tabs=[['orders','Orders'],['buyagain','Buy Again'],['shipped','Not Yet Shipped']];
+  document.getElementById('ordersView').innerHTML = `
+    <div class="ord-crumb"><a onclick="showStore()">Your Account</a> &rsaquo; <b>Your Orders</b></div>
+    <div class="ord-titlerow"><h1>Your Orders</h1>
+      <div class="ord-srch"><div class="box"><svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input placeholder="Search all orders" oninput="ordSearch(this.value)"></div><button class="go" onclick="toast('Demo only')">Search Orders</button></div>
+    </div>
+    <div class="ord-tabs">${tabs.map(([k,l])=>`<button class="ord-tab ${ordTab===k?'on':''}" onclick="setOrdTab('${k}')">${l}</button>`).join('')}</div>
+    <div class="ord-meta"><b>${orders.length} orders</b> placed in <span class="pill">past 3 months &#9662;</span></div>
+    <div class="ord-layout">
+      <div class="ord-list" id="ordList">${list.length?list.map(ordCardHTML).join(''):'<div class="empty">No orders in this view.</div>'}</div>
+      <aside class="ord-aside"><h3>Top Picks For You</h3>${recs.map(ordRecHTML).join('')}</aside>
+    </div>`;
+}
+function ordSearch(v){
+  v=(v||'').toLowerCase().trim();
+  const base=ordVisible(buildOrders());
+  const list=v?base.filter(o=>o.items.some(it=>(it.p.name+' '+it.p.brand).toLowerCase().includes(v))):base;
+  const el=document.getElementById('ordList'); if(el) el.innerHTML=list.length?list.map(ordCardHTML).join(''):'<div class="empty">No orders match your search.</div>';
+}
+function showView(id){ ['storeView','ordersView','accountView','cartView'].forEach(v=>{const el=document.getElementById(v); if(el) el.style.display=(v===id?'block':'none');}); }
+function openOrders(){ showView('ordersView'); renderOrders(); window.scrollTo(0,0); }
+function openAccount(){ showView('accountView'); renderAccount(); window.scrollTo(0,0); }
+function showStore(){ showView('storeView'); }
+function renderAccount(){
+  const ICN={
+    box:'<path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>',
+    lock:'<rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
+    crown:'<path d="M3 7l4 4 5-6 5 6 4-4v11H3z"/>',
+    pin:'<path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/>',
+    biz:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/>',
+    card:'<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>',
+    wallet:'<path d="M3 7a2 2 0 0 1 2-2h11v4"/><rect x="3" y="7" width="18" height="12" rx="2"/><circle cx="17" cy="13" r="1.3"/>',
+    head:'<path d="M5 13a7 7 0 0 1 14 0"/><rect x="3" y="13" width="3.5" height="6" rx="1.5"/><rect x="17.5" y="13" width="3.5" height="6" rx="1.5"/><path d="M19 19a3 3 0 0 1-3 3h-2"/>'
+  };
+  const cards=[
+    {t:'Your Orders', s:'Track, return, or buy things again', i:ICN.box, act:'openOrders()', pal:0},
+    {t:'Login &amp; security', s:'Edit login, name, and mobile number', i:ICN.lock, act:"toast('Demo only')", pal:2},
+    {t:'G Mart Prime', s:'View benefits and payment settings', i:ICN.crown, act:"toast('Demo only')", pal:8},
+    {t:'Your Addresses', s:'Edit addresses for orders and gifts', i:ICN.pin, act:"toast('Demo only')", pal:5},
+    {t:'Your business account', s:'Save up to 18% with GST invoice and bulk discounts on credit.', i:ICN.biz, act:"toast('Demo only')", pal:4},
+    {t:'Payment options', s:'Edit or add payment methods', i:ICN.card, act:"toast('Demo only')", pal:2},
+    {t:'G Mart Pay balance', s:'Add money to your balance', i:ICN.wallet, act:"toast('Demo only')", pal:3},
+    {t:'Contact Us', s:'Contact our customer service via phone or chat', i:ICN.head, act:"toast('Demo only')", pal:1}
+  ];
+  const cols=[
+    {h:'Digital content and devices', l:['Apps and more','Content Library','Devices','Digital gifts you&rsquo;ve received','Digital and device forum']},
+    {h:'Email alerts, messages, and ads', l:['Advertising preferences','Communication preferences','SMS alert preferences','Message Centre','Shopping notifications']},
+    {h:'More ways to pay', l:['Default Purchase Settings','G Mart Pay','Coupons']},
+    {h:'Ordering and shopping', l:['Your transactions','Your saved items','Your recommendations','Recalls and product safety alerts']},
+    {h:'Other accounts', l:['Subscribe &amp; Save items','Memberships &amp; Subscriptions','Your Seller account','Credit &amp; gift cards']},
+    {h:'Shopping programs and rentals', l:['G Mart Plus','Gift Cards &amp; top-ups','Wishlist &amp; registry','Refer a friend']}
+  ];
+  document.getElementById('accountView').innerHTML =
+    '<h1 class="acc-h1">Your Account</h1>'
+    + '<div class="acc-grid">' + cards.map(c=>`<div class="acccard" onclick="${c.act}"><span class="ai" style="--c:${PALETTE[c.pal][0]};--cb:${PALETTE[c.pal][1]}"><svg viewBox="0 0 24 24">${c.i}</svg></span><div class="acctext"><div class="at">${c.t}</div><div class="as">${c.s}</div></div></div>`).join('') + '</div>'
+    + '<div class="acc-divider"></div>'
+    + '<div class="acc-links">' + cols.map(col=>`<div class="acc-col"><h4>${col.h}</h4><ul>${col.l.map(x=>`<li><a onclick="toast('Demo only')">${x}</a></li>`).join('')}</ul></div>`).join('') + '</div>';
+}
+
+let savedForLater=[];
+function cpImg(id){ var u=imgFor(id); return u?`<img src="${u}" alt="">`:`<span class="ph-ic">${ICON.box}</span>`; }
+function openCartView(){ try{closeCart();}catch(e){} showView('cartView'); renderCartView(); window.scrollTo(0,0); }
+function cpQty(id,d){ cart[id]=(cart[id]||0)+d; if(cart[id]<=0){delete cart[id]; delete cartOpt[id];} updateBadge(); renderCart(); renderGrid(); renderCartView(); }
+function cpDelete(id){ delete cart[id]; delete cartOpt[id]; updateBadge(); renderCart(); renderGrid(); renderCartView(); }
+function cpSave(id){ savedForLater.unshift({id:Number(id),opt:cartOpt[id]||null}); delete cart[id]; delete cartOpt[id]; updateBadge(); renderCart(); renderGrid(); renderCartView(); }
+function cpMove(i){ var s=savedForLater.splice(i,1)[0]; if(s){ cart[s.id]=(cart[s.id]||0)+1; cartOpt[s.id]=(s.opt&&s.opt.price)?s.opt:{label:'',price:getP(s.id).price}; } updateBadge(); renderCart(); renderGrid(); renderCartView(); }
+function cpDelSaved(i){ savedForLater.splice(i,1); renderCartView(); }
+function cpAddRec(id){ cart[id]=(cart[id]||0)+1; if(!cartOpt[id])cartOpt[id]={label:'',price:getP(id).price}; updateBadge(); renderCart(); renderGrid(); renderCartView(); toast(getP(id).brand+' added to cart'); }
+function cpProceed(){ if(cartCount()===0)return; goCheckout(); }
+function renderSavedSec(){
+  if(savedForLater.length){ return `<div class="cp-saved"><h2>Saved for later (${savedForLater.length})</h2><div class="cp-saved-grid">`+savedForLater.map(function(s,i){var p=getP(s.id);return `<div class="cp-scard"><div class="cp-simg" onclick="openPDP(${s.id})">${cpImg(s.id)}</div><div class="cp-sname" onclick="openPDP(${s.id})">${p.name}</div><div class="cp-sprice">₹${p.price}</div><button class="cp-smove" onclick="cpMove(${i})">Move to cart</button><button class="cp-link" onclick="cpDelSaved(${i})">Delete</button></div>`;}).join('')+`</div></div>`; }
+  var recs=topByRv(6);
+  return `<div class="cp-saved"><h2>Buy it again</h2><div class="cp-saved-grid">`+recs.map(function(p){return `<div class="cp-scard"><div class="cp-simg" onclick="openPDP(${p.id})">${cpImg(p.id)}</div><div class="cp-sname" onclick="openPDP(${p.id})">${p.name}</div><div class="cp-sprice">₹${p.price}</div><button class="cp-smove" onclick="cpAddRec(${p.id})">Add to cart</button></div>`;}).join('')+`</div></div>`;
+}
+function renderCartView(){
+  var el=document.getElementById('cartView'); if(!el) return;
+  var cont='<button class="cp-continue" onclick="showStore()"><svg class="ic" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Continue shopping</button>';
+  var ids=Object.keys(cart);
+  if(ids.length===0){ el.innerHTML=cont+`<div class="cp-main" style="margin-top:6px"><div class="cp-empty">${ICON.cart}<h2>Your G Mart Cart is empty</h2><p>Browse great deals and add items, or check your saved items below.</p><button class="cta" style="max-width:240px;margin:16px auto 0" onclick="showStore()">Continue shopping</button></div></div>`+renderSavedSec(); return; }
+  var n=cartCount(), sub=subtotal();
+  var trash='<svg class="ic" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg>';
+  var items=ids.map(function(id){ var p=getP(id),q=cart[id],o=cartOpt[id]||{price:p.price,label:''},off=offPct(p); var minusIc=q>1?ICON.minus:trash;
+    return `<div class="cp-item"><input type="checkbox" checked><div class="cp-img" onclick="openPDP(${id})">${cpImg(id)}</div><div class="cp-info"><div class="cp-title" onclick="openPDP(${id})">${p.name}</div>${off?'<div class="cp-dealtag">Limited time deal</div>':''}<div class="cp-prc">${off?`<span class="off">-${off}%</span>`:''}<span class="now">₹${o.price}</span></div>${off?`<div class="cp-mrp">M.R.P.: <s>₹${p.mrp}</s></div>`:''}<div class="cp-stock">In stock</div><div class="cp-deliv"><b>FREE delivery</b> by tomorrow</div><div class="cp-model">${p.brand}${o.label?' &middot; '+o.label:''}${o.variant?' &middot; '+o.variant:''}</div><div class="cp-acts"><div class="cp-qty"><button onclick="cpQty(${id},-1)">${minusIc}</button><span>${q}</span><button onclick="cpQty(${id},1)">${ICON.plus}</button></div><span class="cp-sep">|</span><button class="cp-link" onclick="cpDelete(${id})">Delete</button><span class="cp-sep">|</span><button class="cp-link" onclick="cpSave(${id})">Save for later</button><span class="cp-sep">|</span><button class="cp-link" onclick="showStore();goCat('${p.cat.replace(/'/g,"\\'")}')">See more like this</button><span class="cp-sep">|</span><button class="cp-link" onclick="toast('Demo only')">Share</button></div></div><div class="cp-lineprice">₹${o.price*q}</div></div>`;
+  }).join('');
+  var main=`<div class="cp-main"><div class="cp-head"><h1>Shopping Cart</h1><span class="cp-pricelbl">Price</span></div>${items}<div class="cp-subtotal">Subtotal (${n} item${n!=1?'s':''}): <b>₹${sub}</b></div></div>`;
+  var summary=`<div class="cp-summary">${sub>=FREE_OVER?`<div class="cp-free">${ICON.check}<span>Your order qualifies for <b>FREE Delivery</b>.</span></div>`:`<div class="cp-free" style="color:var(--muted)">${ICON.truck}<span>Add ₹${FREE_OVER-sub} for FREE Delivery.</span></div>`}<div class="cp-sub-line">Subtotal (${n} item${n!=1?'s':''}): <b>₹${sub}</b></div><button class="cp-buy" onclick="cpProceed()">Proceed to Buy</button></div>`;
+  el.innerHTML=cont+`<div class="cp-grid">${main}${summary}</div>`+renderSavedSec();
+}
+
 renderNav(); renderCats(); renderBanner(); renderHomeCards(); renderWideStrip(); renderGrid(); renderCart(); updateBadge();
 </script>
-<script src="enhance.js"></script>
 </body>
 </html>

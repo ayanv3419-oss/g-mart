@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>G Mart — Admin Console</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+<!-- ===== login gate (mart officials only) ===== -->
+<div class="login" id="loginGate">
+  <form class="login-card" id="loginForm" autocomplete="off">
+    <div class="login-logo">
+      <span class="mark"><svg viewBox="0 0 24 24" class="ic"><path d="M3 6h18l-1.5 11a2 2 0 0 1-2 1.7H6.5a2 2 0 0 1-2-1.7L3 6z"/><path d="M8 6V5a4 4 0 0 1 8 0v1"/></svg></span>
+      <div><div class="name">G<span>Mart</span></div></div>
+    </div>
+    <h1>Admin Console</h1>
+    <div class="sub">Restricted — G Mart staff sign-in only.</div>
+    <div class="gm-field">
+      <label class="gm-label">Email</label>
+      <input class="gm-input" id="liEmail" type="email" placeholder="you@gmart.in" value="admin@gmart.in" />
+    </div>
+    <div class="gm-field">
+      <label class="gm-label">Password</label>
+      <input class="gm-input" id="liPass" type="password" placeholder="••••••••" />
+    </div>
+    <button class="gm-btn" type="submit" style="width:100%;padding:12px">Sign in to console</button>
+    <div class="login-err" id="liErr"></div>
+    <div class="login-hint">Demo access — <b>admin@gmart.in</b> / <b>admin123</b></div>
+  </form>
+</div>
+
+<!-- ===== app shell ===== -->
+<div class="app hidden" id="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <span class="mark"><svg viewBox="0 0 24 24" class="ic"><path d="M3 6h18l-1.5 11a2 2 0 0 1-2 1.7H6.5a2 2 0 0 1-2-1.7L3 6z"/><path d="M8 6V5a4 4 0 0 1 8 0v1"/></svg></span>
+      <div><div class="name">G<span>Mart</span></div><div class="tag">Admin</div></div>
+    </div>
+    <button class="navbtn active" data-panel="dashboard">
+      <svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+      Dashboard
+    </button>
+    <button class="navbtn" data-panel="products">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>
+      Products &amp; Uploads
+    </button>
+    <button class="navbtn" data-panel="users">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M16 19v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="3.2"/><path d="M22 19v-2a4 4 0 0 0-3-3.8"/><path d="M16 3.2A4 4 0 0 1 16 11"/></svg>
+      Users
+    </button>
+    <div class="spacer"></div>
+    <button class="navbtn" id="resetDemo" title="Reset all demo data">
+      <svg class="ic" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-3.5-6.6"/><path d="M21 4v4h-4"/></svg>
+      Reset demo data
+    </button>
+    <div class="side-foot">Demo console · all data is local &amp; simulated. No real customers are shown.</div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="menu-toggle icon-btn" id="menuToggle" aria-label="Menu"><svg class="ic" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      <h2 id="pageTitle">Dashboard</h2>
+      <div class="who">
+        <div class="meta" style="text-align:right"><b>Admin</b><span>admin@gmart.in</span></div>
+        <div class="avatar">A</div>
+        <button class="gm-btn ghost sm" id="logoutBtn"><svg class="ic" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>Sign out</button>
+      </div>
+    </header>
+
+    <main class="content">
+      <section class="panel active" id="panel-dashboard"></section>
+      <section class="panel" id="panel-products"></section>
+      <section class="panel" id="panel-users"></section>
+    </main>
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+
+<!-- shared data layer + feature panels -->
+<script src="admin-store.js"></script>
+<script src="admin-dashboard.js"></script>
+<script src="admin-products.js"></script>
+<script src="admin-users.js"></script>
+
+<script>
+/* ---------- global toast ---------- */
+window.toast = function (msg) {
+  const c = document.getElementById('toasts'); if (!c) return;
+  const t = document.createElement('div'); t.className = 'toast';
+  t.innerHTML = '<svg class="ic" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>' + Store.esc(msg);
+  c.appendChild(t);
+  setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 300); }, 2200);
+};
+
+/* ---------- auth (demo only) ---------- */
+const ADMIN = { email: 'admin@gmart.in', pass: 'admin123' };
+const AUTH_KEY = 'gm_admin_auth';
+
+function showApp() {
+  document.getElementById('loginGate').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+  bootPanels();
+}
+document.getElementById('loginForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const email = document.getElementById('liEmail').value.trim().toLowerCase();
+  const pass = document.getElementById('liPass').value;
+  if (email === ADMIN.email && pass === ADMIN.pass) {
+    sessionStorage.setItem(AUTH_KEY, '1');
+    showApp();
+  } else {
+    document.getElementById('liErr').textContent = 'Incorrect email or password.';
+  }
+});
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  sessionStorage.removeItem(AUTH_KEY);
+  location.reload();
+});
+
+/* ---------- panel router ---------- */
+let booted = false;
+function bootPanels() {
+  if (booted) return; booted = true;
+  Store.seed();
+  if (window.AdminDashboard) AdminDashboard.mount(document.getElementById('panel-dashboard'));
+  if (window.AdminProducts) AdminProducts.mount(document.getElementById('panel-products'));
+  if (window.AdminUsers) AdminUsers.mount(document.getElementById('panel-users'));
+}
+const TITLES = { dashboard: 'Dashboard', products: 'Products & Uploads', users: 'Users' };
+document.querySelectorAll('.navbtn[data-panel]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const name = btn.dataset.panel;
+    document.querySelectorAll('.navbtn[data-panel]').forEach(b => b.classList.toggle('active', b === btn));
+    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
+    document.getElementById('pageTitle').textContent = TITLES[name] || '';
+    document.getElementById('sidebar').classList.remove('open');
+  });
+});
+document.getElementById('menuToggle').addEventListener('click', () =>
+  document.getElementById('sidebar').classList.toggle('open'));
+document.getElementById('resetDemo').addEventListener('click', () => {
+  if (confirm('Reset all demo data back to seeded defaults?')) { Store.resetAll(); toast('Demo data reset'); }
+});
+
+/* ---------- enter if already signed in ---------- */
+if (sessionStorage.getItem(AUTH_KEY) === '1') showApp();
+</script>
+</body>
+</html>
