@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>G Mart — Online Store (Basic)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{ --brand:#d92d3c; --brand-dark:#b01f2c; --ink:#1f2937; --muted:#6b7280; --line:#e7e9ee; --bg:#f6f7f9; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}
+  button{font-family:inherit;cursor:pointer;border:none;background:none}
+  img{max-width:100%}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 18px}
+
+  header{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--line)}
+  .hd{display:flex;align-items:center;gap:16px;height:62px}
+  .logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:20px;color:var(--ink);white-space:nowrap}
+  .logo .m{width:34px;height:34px;border-radius:9px;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:18px}
+  .logo span{color:var(--brand)}
+  .logo .tag{font-size:11px;font-weight:700;color:var(--muted);background:#eef0f3;padding:2px 7px;border-radius:20px;margin-left:2px}
+  .search{flex:1;max-width:480px;display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:0 12px;height:40px}
+  .search input{flex:1;border:none;background:none;outline:none;font-size:14px;color:var(--ink)}
+  .cartbtn{margin-left:auto;position:relative;display:flex;align-items:center;gap:8px;background:var(--brand);color:#fff;font-weight:600;font-size:14px;padding:9px 16px;border-radius:10px}
+  .cartbtn:hover{background:var(--brand-dark)}
+  .cartbtn .n{background:#fff;color:var(--brand);font-weight:800;font-size:12px;min-width:20px;height:20px;border-radius:10px;display:grid;place-items:center;padding:0 5px}
+
+  .hero{margin-top:18px}
+  .hero-in{background:linear-gradient(120deg,var(--brand-dark),var(--brand));border-radius:14px;padding:30px 34px;color:#fff}
+  .hero-in h1{font-size:28px;font-weight:800;line-height:1.15}
+  .hero-in p{opacity:.92;font-size:15px;margin-top:6px}
+  .hero-in button{margin-top:16px;background:#fff;color:var(--brand-dark);font-weight:700;font-size:14px;padding:11px 22px;border-radius:9px}
+
+  .cats{display:flex;gap:9px;overflow-x:auto;margin-top:20px;padding-bottom:4px;scrollbar-width:none}
+  .cats::-webkit-scrollbar{display:none}
+  .chip{white-space:nowrap;background:#fff;border:1px solid var(--line);color:var(--muted);font-weight:600;font-size:13.5px;padding:8px 16px;border-radius:20px}
+  .chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+  h2.sec{font-size:18px;font-weight:700;margin:22px 0 14px;color:var(--ink)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px;padding-bottom:50px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:.15s}
+  .card:hover{box-shadow:0 8px 22px rgba(16,24,40,.08)}
+  .thumb{aspect-ratio:1/1;background:#fff;border-bottom:1px solid var(--line);display:grid;place-items:center;padding:14px}
+  .thumb img{max-height:100%;object-fit:contain}
+  .body{padding:12px;display:flex;flex-direction:column;flex:1}
+  .brand{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+  .name{font-size:13.5px;color:var(--ink);margin-top:3px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:38px}
+  .price{font-size:17px;font-weight:800;margin-top:8px}
+  .add{margin-top:10px;background:var(--brand);color:#fff;font-weight:700;font-size:13px;padding:9px;border-radius:8px;text-align:center}
+  .add:hover{background:var(--brand-dark)}
+  .qty{margin-top:10px;display:flex;align-items:center;justify-content:space-between;background:var(--brand);border-radius:8px;overflow:hidden}
+  .qty button{color:#fff;font-size:18px;width:36px;height:36px}
+  .qty span{color:#fff;font-weight:700}
+
+  .back{position:fixed;inset:0;background:rgba(17,24,39,.45);opacity:0;visibility:hidden;transition:.2s;z-index:40}
+  .back.on{opacity:1;visibility:visible}
+  .drawer{position:fixed;top:0;right:0;height:100%;width:380px;max-width:90vw;background:#fff;z-index:50;transform:translateX(100%);transition:.25s;display:flex;flex-direction:column}
+  .drawer.on{transform:none}
+  .dh{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:17px}
+  .dh button{font-size:22px;color:var(--muted)}
+  .db{flex:1;overflow-y:auto;padding:6px 18px}
+  .ci{display:flex;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+  .ci .im{width:54px;height:54px;border:1px solid var(--line);border-radius:8px;display:grid;place-items:center;padding:5px;flex-shrink:0}
+  .ci .im img{max-height:100%;object-fit:contain}
+  .ci .info{flex:1;min-width:0}
+  .ci .info .n{font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ci .info .p{font-size:13px;font-weight:700;margin-top:2px}
+  .ci .st{display:flex;align-items:center;gap:0;border:1px solid var(--line);border-radius:7px;overflow:hidden}
+  .ci .st button{width:26px;height:28px;color:var(--brand-dark);font-weight:700}
+  .ci .st span{min-width:24px;text-align:center;font-weight:700;font-size:13px}
+  .empty{text-align:center;color:var(--muted);padding:60px 16px;font-size:15px}
+  .df{border-top:1px solid var(--line);padding:16px 18px}
+  .row{display:flex;justify-content:space-between;font-size:15px;font-weight:800;margin-bottom:12px}
+  .checkout{width:100%;background:var(--brand);color:#fff;font-weight:700;font-size:15px;padding:13px;border-radius:10px}
+  .checkout:hover{background:var(--brand-dark)}
+  .checkout:disabled{background:#cbd5e1;cursor:not-allowed}
+  .done{text-align:center;padding:40px 18px}
+  .done .ok{width:64px;height:64px;border-radius:50%;background:#e9f9ef;color:#15a34a;display:grid;place-items:center;font-size:34px;margin:0 auto 14px}
+  .done h3{font-size:20px;font-weight:800}.done p{color:var(--muted);font-size:14px;margin-top:6px}
+
+  footer{background:#fff;border-top:1px solid var(--line);text-align:center;color:var(--muted);font-size:13px;padding:22px}
+  @media(max-width:560px){ .logo .tag{display:none} .hero-in h1{font-size:22px} .grid{grid-template-columns:repeat(2,1fr);gap:12px} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hd">
+    <div class="logo"><span class="m">🛒</span>G<span>Mart</span><span class="tag">Basic</span></div>
+    <div class="search">🔍<input id="q" type="text" placeholder="Search products..." oninput="onSearch(this.value)"/></div>
+    <button class="cartbtn" onclick="openCart()">Cart <span class="n" id="cnum">0</span></button>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero"><div class="hero-in"><h1>Everyday essentials,<br/>at low prices.</h1><p>Simple shopping. Great deals. Fast delivery.</p><button onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop now</button></div></section>
+  <div class="cats" id="cats"></div>
+  <h2 class="sec" id="shop">Products</h2>
+  <div class="grid" id="grid"><div class="empty">Loading products…</div></div>
+</main>
+
+<footer>© 2026 G Mart (Basic). Demo store — for demonstration only.</footer>
+
+<div class="back" id="back" onclick="closeCart()"></div>
+<aside class="drawer" id="drawer">
+  <div class="dh">Your Cart <button onclick="closeCart()">×</button></div>
+  <div class="db" id="db"></div>
+  <div class="df" id="df"></div>
+</aside>
+
+<script>
+let PRODUCTS=[], CATS=[], IMG={}, cart={}, activeCat='All', term='';
+
+async function load(){
+  try{
+    const cat = await fetch('catalog.json').then(r=>r.json());
+    let man={}; try{ man = await fetch('img/manifest.json').then(r=>r.json()); }catch(e){}
+    IMG = man;
+    PRODUCTS = (cat.products||[]).filter(p => man[p.id] && man[p.id][0]);
+    CATS = ['All'].concat((cat.categories||[]).filter(c => PRODUCTS.some(p=>p.cat===c)));
+  }catch(e){
+    document.getElementById('grid').innerHTML = '<div class="empty">Could not load products. Run this on the server (or live link), not from a file.</div>';
+    return;
+  }
+  renderCats(); renderGrid();
+}
+function imgOf(id){ const a=IMG[id]; return a&&a[0]?a[0]:''; }
+function getP(id){ return PRODUCTS.find(p=>p.id==id); }
+
+function renderCats(){
+  document.getElementById('cats').innerHTML = CATS.map(c=>`<button class="chip ${c===activeCat?'on':''}" onclick="setCat('${c.replace(/'/g,"\\'")}')">${c}</button>`).join('');
+}
+function setCat(c){ activeCat=c; renderCats(); renderGrid(); }
+function onSearch(v){ term=v.toLowerCase().trim(); renderGrid(); }
+
+function renderGrid(){
+  let list = PRODUCTS.filter(p =>
+    (activeCat==='All'||p.cat===activeCat) &&
+    (term===''||p.name.toLowerCase().includes(term)||(p.brand||'').toLowerCase().includes(term)));
+  const g = document.getElementById('grid');
+  if(!list.length){ g.innerHTML='<div class="empty">No products found.</div>'; return; }
+  g.innerHTML = list.map(p=>{
+    const q = cart[p.id]||0;
+    const ctrl = q>0
+      ? `<div class="qty"><button onclick="dec(${p.id})">−</button><span>${q}</span><button onclick="inc(${p.id})">+</button></div>`
+      : `<button class="add" onclick="inc(${p.id})">Add to Cart</button>`;
+    return `<div class="card"><div class="thumb"><img src="${imgOf(p.id)}" alt="" loading="lazy"></div><div class="body"><div class="brand">${p.brand||''}</div><div class="name">${p.name}</div><div class="price">₹${p.price}</div>${ctrl}</div></div>`;
+  }).join('');
+}
+
+function inc(id){ cart[id]=(cart[id]||0)+1; sync(); }
+function dec(id){ if(!cart[id])return; cart[id]--; if(cart[id]<=0)delete cart[id]; sync(); }
+function count(){ return Object.values(cart).reduce((a,b)=>a+b,0); }
+function total(){ return Object.entries(cart).reduce((s,[id,q])=>s+getP(id).price*q,0); }
+function sync(){ renderGrid(); document.getElementById('cnum').textContent=count(); renderCart(); }
+
+function renderCart(){
+  const db=document.getElementById('db'), df=document.getElementById('df'), ids=Object.keys(cart);
+  if(!ids.length){ db.innerHTML='<div class="empty">Your cart is empty.</div>'; df.innerHTML=`<button class="checkout" disabled>Cart is empty</button>`; return; }
+  db.innerHTML = ids.map(id=>{const p=getP(id),q=cart[id];
+    return `<div class="ci"><div class="im"><img src="${imgOf(id)}"></div><div class="info"><div class="n">${p.name}</div><div class="p">₹${p.price*q}</div></div><div class="st"><button onclick="dec(${id})">−</button><span>${q}</span><button onclick="inc(${id})">+</button></div></div>`;}).join('');
+  df.innerHTML = `<div class="row"><span>Total</span><span>₹${total()}</span></div><button class="checkout" onclick="checkout()">Checkout (${count()})</button>`;
+}
+function openCart(){ renderCart(); document.getElementById('drawer').classList.add('on'); document.getElementById('back').classList.add('on'); }
+function closeCart(){ document.getElementById('drawer').classList.remove('on'); document.getElementById('back').classList.remove('on'); }
+function checkout(){
+  if(!count())return;
+  document.getElementById('db').innerHTML = `<div class="done"><div class="ok">✓</div><h3>Order placed!</h3><p>Thank you for shopping with G Mart. This is a demo — no real payment was taken.</p></div>`;
+  document.getElementById('df').innerHTML = `<button class="checkout" onclick="cart={};sync();closeCart()">Continue shopping</button>`;
+  cart={}; document.getElementById('cnum').textContent=0; renderGrid();
+}
+
+load();
+</script>
+</body>
+</html>
